@@ -1,0 +1,14 @@
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    alias: {
+      '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    },
+    setupFiles: ['./setupTests.ts'],
+  },
+});
