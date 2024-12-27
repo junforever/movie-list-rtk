@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+body {
+  @apply bg-black-adam
+}

@@ -1,0 +1,16 @@
+@api_url=https://api.themoviedb.org/3/movie/popular?language=es&page=1&api_key=
+@genres_url=https://api.themoviedb.org/3/genre/tv/list?api_key=
+@languages_url=https://api.themoviedb.org/3/configuration/languages?api_key=
+@images_url = https://api.themoviedb.org/3/movie/845781/images?api_key=
+
+###
+GET {{api_url}}{{$dotenv VITE_API_KEY}}
+
+###
+GET {{genres_url}}{{$dotenv VITE_API_KEY}}
+
+###
+GET {{images_url}}{{$dotenv VITE_API_KEY}}
+
+###
+GET {{languages_url}}{{$dotenv VITE_API_KEY}}

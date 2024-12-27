@@ -1,14 +1,20 @@
-import axios from 'axios';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { FiltersState, ApiRest } from '@/types/global';
 
-class ApiService {
-  getMovies({ language, apiKey }: { language: string; apiKey: string }) {
-    const category = 'popular'; // possible values: top_rated | upcoming | now_playing;
-    const url = `https://api.themoviedb.org/3/movie/${category}?language=${language}&api_key=${apiKey}`;
+export const moviesRtk = createApi({
+  reducerPath: 'moviesRtk',
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_API_URL,
+  }),
+  endpoints: builder => ({
+    getMoviesList: builder.query<ApiRest, FiltersState>({
+      query: ({ category, page, language }) => ({
+        url: `/${category}`,
+        method: 'GET',
+        params: { page, language, api_key: import.meta.env.VITE_API_KEY },
+      }),
+    }),
+  }),
+});
 
-    // NOTICE:
-    //
-    return axios.get(url);
-  }
-}
-
-export default new ApiService();
+export const { useGetMoviesListQuery } = moviesRtk;
