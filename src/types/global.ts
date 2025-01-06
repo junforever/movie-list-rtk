@@ -15,9 +15,12 @@ export const LANGUAGE = {
 export type LanguageList = (typeof LANGUAGE)[keyof typeof LANGUAGE];
 
 export interface FiltersState {
-  page: number;
   category: CategoryList;
   language: LanguageList;
+}
+
+export interface QueryParams extends FiltersState {
+  page: number;
 }
 
 export interface Movie {

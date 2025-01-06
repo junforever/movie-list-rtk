@@ -7,6 +7,7 @@ import { debounce } from '@/utils/functions';
 export const MoviesList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [movies, setMovies] = useState<Movie[]>([]);
+  //TODO: replace for filters
   const { data, isLoading, error } = useGetMoviesListQuery({ page: currentPage, category: 'popular', language: 'en' });
   useEffect(() => {
     if (data) {
@@ -44,7 +45,7 @@ export const MoviesList = () => {
   }, [data, handleScroll]);
 
   return (
-    <>
+    <section>
       {(isLoading || !data) && <div>Loading...</div>}
       {error && <div>Error: {JSON.stringify(error)}</div>}
       {movies && (
@@ -56,6 +57,6 @@ export const MoviesList = () => {
           ))}
         </ul>
       )}
-    </>
+    </section>
   );
 };

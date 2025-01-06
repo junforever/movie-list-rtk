@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { FiltersState, ApiRest } from '@/types/global';
+import { QueryParams, ApiRest } from '@/types/global';
 
 export const moviesRtk = createApi({
   reducerPath: 'moviesRtk',
@@ -7,11 +7,12 @@ export const moviesRtk = createApi({
     baseUrl: import.meta.env.VITE_API_URL,
   }),
   endpoints: builder => ({
-    getMoviesList: builder.query<ApiRest, FiltersState>({
+    getMoviesList: builder.query<ApiRest, QueryParams>({
       query: ({ category, page, language }) => ({
         url: `/${category}`,
         method: 'GET',
         params: { page, language, api_key: import.meta.env.VITE_API_KEY },
+        keepUnusedDataFor: 300,
       }),
     }),
   }),

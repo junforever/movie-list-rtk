@@ -17,7 +17,10 @@ export default {
       },
       gridTemplateColumns: {
         'list': 'repeat(auto-fit, minmax(min(100%, 15.625rem), 1fr))'
-      }
+      },
+      aspectRatio: {
+        'movie': '2 / 3',
+      },
     },
   }
 }

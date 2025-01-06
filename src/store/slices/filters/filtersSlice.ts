@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { CATEGORY, CategoryList, FiltersState, LANGUAGE, LanguageList } from '../../../types/global';
 
 const initialState: FiltersState = {
-  page: 1,
   category: CATEGORY.Popular,
   language: LANGUAGE.English,
 };
@@ -11,9 +10,6 @@ export const filtersSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
-    setPage: (state, { payload }: { payload: number }) => {
-      state.page = payload;
-    },
     setCategory: (state, { payload }: { payload: CategoryList }) => {
       state.category = payload;
     },
@@ -23,4 +19,4 @@ export const filtersSlice = createSlice({
   },
 });
 
-export const { setPage, setCategory, setLanguage } = filtersSlice.actions;
+export const { setCategory, setLanguage } = filtersSlice.actions;
