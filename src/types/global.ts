@@ -14,6 +14,14 @@ export const LANGUAGE = {
 
 export type LanguageList = (typeof LANGUAGE)[keyof typeof LANGUAGE];
 
+export const RULE = {
+  OddEven: 'oe',
+  PrimeNumber: 'pri',
+  None: '',
+} as const;
+
+export type RuleList = (typeof RULE)[keyof typeof RULE];
+
 export interface FiltersState {
   category: CategoryList;
   language: LanguageList;

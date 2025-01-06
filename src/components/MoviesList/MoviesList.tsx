@@ -49,7 +49,7 @@ export const MoviesList = () => {
       {(isLoading || !data) && <div>Loading...</div>}
       {error && <div>Error: {JSON.stringify(error)}</div>}
       {movies && (
-        <ul className="grid gap-8 p-6 grid-cols-list">
+        <ul className="grid gap-8 py-6 grid-cols-list">
           {movies.map((movie: Movie) => (
             <li key={movie.id}>
               <MovieCard movie={movie} cssClass="bg-black" />

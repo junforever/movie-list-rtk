@@ -1,8 +1,9 @@
 import { MoviesList } from '@/components/MoviesList/MoviesList';
+import { MovieFilters } from './components/MovieFilters/MovieFilters';
 function App() {
   return (
     <>
-      TOP MOVIES
+      <MovieFilters />
       <MoviesList />
     </>
   );
