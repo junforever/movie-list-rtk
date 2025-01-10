@@ -2,22 +2,45 @@ import { useGetMoviesListQuery } from '@/services/api.service';
 import { Movie, ApiRest } from '@/types/global';
 import { MovieCard } from '../MovieCard/MovieCard';
 import { useEffect, useState, useCallback } from 'react';
-import { debounce } from '@/utils/functions';
+import { debounce, isEven, isPrime } from '@/utils/functions';
+import { useStoreDispatch, useStoreSelector } from '@/store/store';
+import { setPage } from '@/store/slices/filters/filtersSlice';
+import { Toast } from '../Toast/Toast';
+import { RuleList, RULE } from '../../types/global';
+
+const cardFormat = (rule: RuleList, num: number): string => {
+  /* eslint-disable */
+  switch (rule) {
+    case RULE.PrimeNumber:
+      return isPrime(num) ? 'bg-odd-red text-white' : 'bg-even-orange text-white';
+
+    case RULE.OddEven:
+      return isEven(num) ? 'bg-even-orange text-white' : 'bg-odd-red text-white';
+
+    default:
+      return 'bg-black';
+  }
+  /* eslint-enable */
+};
 
 export const MoviesList = () => {
-  const [currentPage, setCurrentPage] = useState(1);
   const [movies, setMovies] = useState<Movie[]>([]);
-  //TODO: replace for filters
-  const { data, isLoading, error } = useGetMoviesListQuery({ page: currentPage, category: 'popular', language: 'en' });
+  const dispatch = useStoreDispatch();
+  const { category, language, page } = useStoreSelector(state => state.filters);
+  const { rule } = useStoreSelector(state => state.formatters);
+  const { data, isLoading, error } = useGetMoviesListQuery({ page, category, language });
+
   useEffect(() => {
     if (data) {
-      setMovies(prev => [...prev, ...data.results]);
       if (data.page > 1) {
+        setMovies(prev => [...prev, ...data.results]);
         window.scrollTo({
           top: document.body.scrollHeight - 1000,
           behavior: 'auto',
         });
+        return;
       }
+      setMovies(data.results);
     }
   }, [data]);
 
@@ -26,12 +49,12 @@ export const MoviesList = () => {
       if (document.body.scrollHeight - 100 < window.scrollY + window.innerHeight && data) {
         if (!data.page) return;
 
-        if (data.page < currentPage || data.page + 1 > data.total_pages) return;
+        if (data.page < page || data.page + 1 > data.total_pages) return;
 
-        setCurrentPage(data.page + 1);
+        dispatch(setPage(data.page + 1));
       }
     },
-    [currentPage],
+    [page],
   );
 
   useEffect(() => {
@@ -46,16 +69,19 @@ export const MoviesList = () => {
 
   return (
     <section>
-      {(isLoading || !data) && <div>Loading...</div>}
-      {error && <div>Error: {JSON.stringify(error)}</div>}
-      {movies && (
-        <ul className="grid gap-8 py-6 grid-cols-list">
-          {movies.map((movie: Movie) => (
-            <li key={movie.id}>
-              <MovieCard movie={movie} cssClass="bg-black" />
-            </li>
-          ))}
-        </ul>
+      {(isLoading || !data) && <Toast title="Loading" icon="loading" />}
+      {error ? (
+        <Toast title="Error" text="There was an error loading the data, the api responded with an error" icon="error" />
+      ) : (
+        movies && (
+          <ul className="grid gap-8 py-6 grid-cols-list">
+            {movies.map((movie: Movie, index: number) => (
+              <li key={crypto.randomUUID()}>
+                <MovieCard movie={movie} cssClass={cardFormat(rule, index + 1)} />
+              </li>
+            ))}
+          </ul>
+        )
       )}
     </section>
   );

@@ -1,13 +1,14 @@
 import { useId, useState } from 'react';
 
-interface FilterSelectProps {
-  options: { label: string; value: string | number }[];
+interface FilterSelectProps<T> {
+  options: { label: string; value: T }[];
   label: string;
+  handleOnChange: (value: T) => void;
 }
 
-export const CustomSelect = ({ options, label }: FilterSelectProps) => {
+export const CustomSelect = <T,>({ options, label, handleOnChange }: FilterSelectProps<T>) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(options[0].value);
+  const [value, setValue] = useState<T>(options[0].value as T);
   const selectId = useId();
 
   return (
@@ -21,14 +22,16 @@ export const CustomSelect = ({ options, label }: FilterSelectProps) => {
           id={selectId}
           onClick={() => setOpen(prev => !prev)}
           onChange={e => {
-            setValue(e.target.value);
+            const newValue = e.target.value as T;
+            setValue(newValue);
+            handleOnChange(newValue);
           }}
           onBlur={() => setOpen(false)}
           onKeyDown={e => (e.key === 'Enter' ? setOpen(prev => !prev) : '')}
           className="rounded-xl bg-select-brown font-semibold pl-2 pr-6 appearance-none cursor-pointer"
-          value={value}>
+          value={value as string}>
           {options.map(option => (
-            <option key={crypto.randomUUID()} value={option.value}>
+            <option key={`${option.value}-${option.label}`} value={option.value as string}>
               {option.label}
             </option>
           ))}

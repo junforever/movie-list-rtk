@@ -1,6 +1,12 @@
-import { CATEGORY, LANGUAGE, RULE } from '@/types/global';
+import { CATEGORY, CategoryList, LANGUAGE, LanguageList, RULE, RuleList } from '@/types/global';
 import { CustomSelect } from '../CustomSelect/CustomSelect';
+import { useStoreDispatch } from '@/store/store';
+import { setCategory, setLanguage } from '@/store/slices/filters/filtersSlice';
+import { setRule } from '@/store/slices/formatters/formattersSlice';
 
+interface MovieFiltersProps {
+  title: string;
+}
 const categoryOptions = [
   { value: CATEGORY.Popular, label: 'Popular' },
   { value: CATEGORY.MostRelated, label: 'Most Related' },
@@ -19,16 +25,27 @@ const ruleOptions = [
   { value: RULE.PrimeNumber, label: 'Prime Number' },
 ];
 
-export const MovieFilters = () => {
+export const MovieFilters = ({ title }: MovieFiltersProps) => {
+  const dispatch = useStoreDispatch();
+  const handleCategoryChange = (value: CategoryList) => {
+    dispatch(setCategory(value));
+  };
+  const handleLanguageChange = (value: LanguageList) => {
+    dispatch(setLanguage(value));
+  };
+  const handleRuleChange = (value: RuleList) => {
+    dispatch(setRule(value));
+  };
+
   return (
     <section className="flex flex-col">
-      <h1 className="text-white text-5xl">TOP Movies</h1>
+      <h1 className="text-white text-5xl">{title}</h1>
       <div className="flex justify-between gap-4 mt-8">
-        <CustomSelect options={categoryOptions} label="Category:" />
-        <CustomSelect options={languageOptions} label="Language:" />
+        <CustomSelect<CategoryList> options={categoryOptions} label="Category:" handleOnChange={handleCategoryChange} />
+        <CustomSelect<LanguageList> options={languageOptions} label="Language:" handleOnChange={handleLanguageChange} />
       </div>
       <div className="flex flex-row-reverse justify-between gap-4 mt-2">
-        <CustomSelect options={ruleOptions} label="Rule:" />
+        <CustomSelect<RuleList> options={ruleOptions} label="Rule:" handleOnChange={handleRuleChange} />
       </div>
     </section>
   );

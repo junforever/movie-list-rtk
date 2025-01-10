@@ -3,7 +3,8 @@ import { MovieFilters } from './components/MovieFilters/MovieFilters';
 function App() {
   return (
     <>
-      <MovieFilters />
+      <MovieFilters title="TOP Movies" />
+      <div className="my-8"></div>
       <MoviesList />
     </>
   );

@@ -9,3 +9,43 @@
 body {
   @apply bg-black-adam
 }
+
+dialog {
+  width: min(45rem, 90%)
+}
+
+@layer components {
+  .divider {
+    @apply flex;
+    @apply items-center;
+    @apply text-lg;
+    @apply font-semibold;
+    @apply tracking-wide;
+  }
+
+  .divider::after {
+    @apply ml-4
+  }
+  .divider::before {
+    @apply mr-4
+  }
+
+  .divider::after,
+  .divider::before {
+    content: '';
+    @apply flex-grow;
+    @apply h-[0.125rem];
+    @apply bg-gray-700/50;
+
+  }
+  .chat-msg::before{
+    content: '';
+    @apply absolute;
+    @apply size-5;
+    @apply bottom-0;
+    @apply -left-[16px];
+    @apply bg-grey-chat;
+    clip-path: polygon(25px 30px, 0px 30px, 25px 0px);
+  }
+
+}

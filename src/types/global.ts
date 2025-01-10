@@ -25,9 +25,6 @@ export type RuleList = (typeof RULE)[keyof typeof RULE];
 export interface FiltersState {
   category: CategoryList;
   language: LanguageList;
-}
-
-export interface QueryParams extends FiltersState {
   page: number;
 }
 

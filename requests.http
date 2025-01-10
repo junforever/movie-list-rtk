@@ -1,5 +1,5 @@
-@api_url=https://api.themoviedb.org/3/movie/popular?language=es&page=1&api_key=
-@genres_url=https://api.themoviedb.org/3/genre/tv/list?api_key=
+@api_url=https://api.themoviedb.org/3/movie/popular?language=en&page=2&api_key=
+@genres_url=https://api.themoviedb.org/3/genre/movie/list?api_key=
 @languages_url=https://api.themoviedb.org/3/configuration/languages?api_key=
 @images_url = https://api.themoviedb.org/3/movie/845781/images?api_key=
 
