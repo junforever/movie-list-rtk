@@ -37,6 +37,9 @@ export const MovieCard = ({ cssClass, movie }: MovieCardProps) => {
         </ChatAnswer>
         <ChatAnswer avatarUrl="/images/avatar.webp" dividerTitle="Additional Information">
           <p>
+            <b>Popularity:</b> {movie.popularity}
+          </p>
+          <p>
             <b>Vote Average:</b> {movie.vote_average}
           </p>
           <p>

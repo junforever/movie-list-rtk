@@ -36,7 +36,7 @@ export const Toast = ({ text, title, icon }: ToastProps) => {
 
   return ReactDOM.createPortal(
     <div
-      className={`${fadeOut ? 'animate-fadeOut' : ''} animate-fadeIn absolute flex gap-4 items-center bg-black border-gray-600 border rounded-md p-4 w-1/2 left-2/4 -translate-x-1/2 translate-y-4`}>
+      className={`${fadeOut ? 'animate-fadeOut' : ''} animate-fadeIn absolute flex gap-4 items-center bg-black border-gray-600 border rounded-md p-4 w-1/2 left-2/4 -translate-x-1/2 translate-y-4 z-10`}>
       {icon && (
         <IconContext.Provider value={{ className: `text-white w-8 h-8 ${icon === 'loading' ? 'animate-spin' : ''}` }}>
           {icon === 'loading' && <CgSpinner />}

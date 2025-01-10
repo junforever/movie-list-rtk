@@ -12,7 +12,7 @@ export const CustomSelect = <T,>({ options, label, handleOnChange }: FilterSelec
   const selectId = useId();
 
   return (
-    <div className="flex text-white gap-4 items-baseline">
+    <div className="flex flex-col xs:flex-row text-white gap-4 items-baseline">
       <label htmlFor={selectId} className="text-xl font-semibold">
         {label}
       </label>

@@ -38,7 +38,7 @@ dialog {
     @apply bg-gray-700/50;
 
   }
-  .chat-msg::before{
+  .chat-msg::before {
     content: '';
     @apply absolute;
     @apply size-5;
@@ -48,4 +48,31 @@ dialog {
     clip-path: polygon(25px 30px, 0px 30px, 25px 0px);
   }
 
+  .neon span {
+    -webkit-text-stroke: 0.0667rem var(--color);
+    transition: 0.5s;
+  }
+
+  .neon div.neon-letter:hover span {
+    @apply opacity-0;
+  }
+
+  .neon div.neon-letter::before {
+    content: attr(data-text);
+    @apply absolute;
+    @apply top-0;
+    @apply left-0;
+    @apply w-full;
+    @apply h-0;
+    @apply font-bold;
+    @apply overflow-hidden;
+    transition: 0.5s ease-in-out;
+    @apply text-center;
+    color: var(--color);
+  }
+
+  .neon div.neon-letter:hover::before {
+    @apply h-full;
+    filter: drop-shadow(0 0 2rem var(--color));
+  }
 }

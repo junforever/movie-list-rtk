@@ -35,7 +35,7 @@ export const ChatAnswer = ({ children, avatarUrl, dividerTitle }: ChatAnswerProp
         <div className="flex flex-col">
           <div className="chat-msg relative bg-grey-chat rounded-lg py-2 px-3">{children}</div>
           <div className="flex items-center gap-x-1">
-            <span className="block text-modal-title">Sent at {getCurrentHour()}</span>
+            <span className="block text-modal-title text-base ">Sent at {getCurrentHour()}</span>
             <IconContext.Provider value={{ className: 'text-xl' }}>
               <BiCheckDouble />
             </IconContext.Provider>

@@ -51,3 +51,8 @@ export interface ApiRest {
   total_pages: number;
   total_results: number;
 }
+
+export interface Genres {
+  id: number;
+  name: string;
+}
