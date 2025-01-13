@@ -1,3 +1,5 @@
+import { Genre } from '@/types/global';
+
 export const isPrime = (number: number) => {
   if (number <= 1) return false;
   if (number <= 3) return true;
@@ -13,6 +15,11 @@ export const isPrime = (number: number) => {
 
 export const isEven = (number: number) => {
   return number % 2 === 0;
+};
+
+export const getGenreText = (options: Genre[], id: number): string => {
+  const genre = options.filter(Boolean).find(genre => genre.id === id);
+  return genre?.name ?? 'Unknown';
 };
 
 //eslint-disable-next-line

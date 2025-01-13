@@ -2,7 +2,7 @@ import { useGetMoviesListQuery } from '@/services/api.service';
 import { Movie, ApiRest } from '@/types/global';
 import { MovieCard } from '../MovieCard/MovieCard';
 import { useEffect, useState, useCallback } from 'react';
-import { debounce, isEven, isPrime } from '@/utils/functions';
+import { debounce, getGenreText, isEven, isPrime } from '@/utils/functions';
 import { useStoreDispatch, useStoreSelector } from '@/store/store';
 import { setPage } from '@/store/slices/filters/filtersSlice';
 import { Toast } from '../Toast/Toast';
@@ -29,6 +29,7 @@ export const MoviesList = () => {
   const { category, language, page } = useStoreSelector(state => state.filters);
   const { rule } = useStoreSelector(state => state.formatters);
   const { data, isLoading, error } = useGetMoviesListQuery({ page, category, language });
+  const { genres } = useStoreSelector(state => state.genres);
 
   useEffect(() => {
     if (data) {
@@ -75,11 +76,15 @@ export const MoviesList = () => {
       ) : (
         movies && (
           <ul className="grid gap-8 py-6 grid-cols-list">
-            {movies.map((movie: Movie, index: number) => (
-              <li key={crypto.randomUUID()}>
-                <MovieCard movie={movie} cssClass={cardFormat(rule, index + 1)} />
-              </li>
-            ))}
+            {movies.map((movie: Movie, index: number) => {
+              const genresList = movie.genre_ids.map(id => getGenreText(genres, id));
+              const movieWithGenres = { ...movie, genre_labels: genresList };
+              return (
+                <li key={crypto.randomUUID()}>
+                  <MovieCard movie={movieWithGenres} cssClass={cardFormat(rule, index + 1)} />
+                </li>
+              );
+            })}
           </ul>
         )
       )}

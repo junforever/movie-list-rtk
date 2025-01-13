@@ -4,6 +4,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { moviesRtk } from '@/services/api.service';
 import { genresSlice } from './slices/genres/genresSlice';
 import { formattersSlice } from './slices/formatters/formattersSlice';
+import { genresRtk } from '@/services/genre.service';
 
 export const store = configureStore({
   reducer: {
@@ -11,8 +12,9 @@ export const store = configureStore({
     genres: genresSlice.reducer,
     formatters: formattersSlice.reducer,
     [moviesRtk.reducerPath]: moviesRtk.reducer,
+    [genresRtk.reducerPath]: genresRtk.reducer,
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(moviesRtk.middleware),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(moviesRtk.middleware, genresRtk.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

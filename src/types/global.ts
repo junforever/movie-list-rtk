@@ -43,6 +43,7 @@ export interface Movie {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  genre_labels?: string[];
 }
 
 export interface ApiRest {
@@ -52,7 +53,11 @@ export interface ApiRest {
   total_results: number;
 }
 
-export interface Genres {
+export interface Genre {
   id: number;
   name: string;
+}
+
+export interface GenresApiRest {
+  genres: Genre[];
 }
