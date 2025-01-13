@@ -14,6 +14,7 @@ const getCurrentHour = () => {
   const currentMinutes = currentTime.getMinutes().toString();
   return `${currentHour}:${currentMinutes.length === 1 ? `0${currentMinutes}` : currentMinutes}`;
 };
+
 export const ChatAnswer = ({ children, avatarUrl, dividerTitle }: ChatAnswerProps) => {
   return (
     <>

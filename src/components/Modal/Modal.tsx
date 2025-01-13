@@ -31,7 +31,7 @@ export const Modal = ({ title, children, modalRef }: ModalProps) => {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (modalRef.current) modalRef.current.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
