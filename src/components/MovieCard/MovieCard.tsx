@@ -16,7 +16,10 @@ export const MovieCard = ({ cssClass, movie }: MovieCardProps) => {
   return (
     <>
       <figure
-        onClick={() => modalRef.current?.showModal()}
+        onClick={() => {
+          document.body.classList.add('overflow-hidden');
+          modalRef.current?.showModal();
+        }}
         className="flex flex-col pb-[0.3rem] w-full h-full rounded-2xl overflow-hidden shadow-white-card transition-transform duration-500 ease-in-out hover:scale-[1.05] cursor-pointer">
         {!imgLoaded && <img src="/images/fff.webp" alt="Placeholder image" className="aspect-movie blur-lg" />}
         <img
@@ -36,13 +39,13 @@ export const MovieCard = ({ cssClass, movie }: MovieCardProps) => {
           <p>{movie.overview}</p>
           {movie.genre_labels && (
             <>
-              <p>
+              <p className="mt-4">
                 <b>Categories:</b>
               </p>
-              <p className="mt-3 mb-2">
+              <p className="mt-3 mb-2 flex gap-2 flex-wrap">
                 {movie.genre_labels.map((genre, index) => (
                   <span
-                    className="p-2 mr-2 rounded-xl border-sky-500/15 bg-sky-500/10 text-sky-300"
+                    className="p-2 rounded-xl border-sky-500/15 bg-sky-500/10 text-sky-300"
                     key={`${genre}-${index}`}>
                     {genre}
                   </span>

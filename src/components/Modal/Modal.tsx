@@ -18,6 +18,7 @@ export const Modal = ({ title, children, modalRef }: ModalProps) => {
       'backdrop:ease-out',
       'opacity-0',
     );
+    document.body.classList.remove('overflow-hidden');
     timeOutRef.current = window.setTimeout(() => {
       modalRef.current?.close();
       modalRef.current?.classList.remove(
@@ -31,7 +32,9 @@ export const Modal = ({ title, children, modalRef }: ModalProps) => {
   };
 
   useEffect(() => {
-    if (modalRef.current) modalRef.current.scrollTo(0, 0);
+    if (modalRef.current && Object.hasOwn(modalRef.current, 'scrollTo')) {
+      modalRef.current.scrollTo(0, 0);
+    }
   }, []);
 
   useEffect(() => {

@@ -19,10 +19,10 @@ export const Toast = ({ text, title, icon }: ToastProps) => {
   useEffect(() => {
     const timerFo = window.setTimeout(() => {
       setFadeOut(true);
-    }, 4500);
+    }, 45000);
     const timerFi = window.setTimeout(() => {
       setVisible(false);
-    }, 5000);
+    }, 50000);
     return () => {
       clearTimeout(timerFi);
       clearTimeout(timerFo);
@@ -36,6 +36,7 @@ export const Toast = ({ text, title, icon }: ToastProps) => {
 
   return ReactDOM.createPortal(
     <div
+      data-testid="toast-comp"
       className={`${fadeOut ? 'animate-fadeOut' : ''} animate-fadeIn absolute flex gap-4 items-center bg-black border-gray-600 border rounded-md p-4 w-1/2 left-2/4 -translate-x-1/2 translate-y-4 z-10`}>
       {icon && (
         <IconContext.Provider value={{ className: `text-white w-8 h-8 ${icon === 'loading' ? 'animate-spin' : ''}` }}>

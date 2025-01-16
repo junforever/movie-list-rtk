@@ -70,11 +70,11 @@ export const MoviesList = () => {
 
   return (
     <section>
-      {(isLoading || !data) && <Toast title="Loading" icon="loading" />}
+      {(isLoading || !data || movies.length === 0) && <Toast title="Loading" icon="loading" />}
       {error ? (
         <Toast title="Error" text="There was an error loading the data, the api responded with an error" icon="error" />
       ) : (
-        movies && (
+        movies.length > 0 && (
           <ul className="grid gap-8 py-6 grid-cols-list">
             {movies.map((movie: Movie, index: number) => {
               const genresList = movie.genre_ids.map(id => getGenreText(genres, id));

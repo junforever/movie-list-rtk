@@ -7,11 +7,25 @@
 }
 
 body {
-  @apply bg-black-adam
+  @apply bg-black-adam;
 }
 
 dialog {
-  width: min(45rem, 90%)
+  width: min(45rem, 90%);
+}
+
+::-webkit-scrollbar {
+  @apply w-4;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-grey-chat;
+  @apply rounded-3xl
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white;
+  @apply rounded-2xl
 }
 
 @layer components {
