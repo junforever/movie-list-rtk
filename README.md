@@ -9,13 +9,13 @@ This project is a movie browsing web application built using React and Redux Too
 - Axios 1.7.7
 - Tailwind CSS 3.4.15
 - Vite 5.4.10
-- DaisyUI 4.12.14
 - Node 20.18.1
 - React Icons 5.3.0
-- Vitest 2.1.6
 - Yarn 1.22.22
-- Autoprefixer 10.4.20
 - RTK Query
+
+## Testing
+- Vitest 2.1.6
 
 ## Main Features:
 

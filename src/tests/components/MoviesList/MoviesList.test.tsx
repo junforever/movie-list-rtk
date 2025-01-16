@@ -3,44 +3,33 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { vi } from 'vitest';
-import { moviesRtk } from '@/services/api.service';
+import * as api from '@/services/api.service';
 import { filtersSlice } from '@/store/slices/filters/filtersSlice';
 import { genresSlice } from '@/store/slices/genres/genresSlice';
 import { formattersSlice } from '@/store/slices/formatters/formattersSlice';
 import { mockFilters, mockGenres, mockMovies, mockRules } from '@/tests/fixtures/storeFixtures';
 
-// const mockedFn = vi.fn().mockReturnValue({
-//   data: mockMovies,
-//   isLoading: false,
-//   error: null,
-// });
-
-// vi.mock('@/services/api.service', async () => {
-//   const actual = await vi.importActual('@/services/api.service');
-//   return {
-//     ...actual,
-//     useGetMoviesListQuery: vi.fn(() => ({
-//       data: mockMovies,
-//       isLoading: false,
-//       error: null,
-//     })),
-//   };
-
-// });
+vi.mock('@/services/api.service', async () => {
+  const actual = await vi.importActual('@/services/api.service');
+  return {
+    ...actual,
+    useGetMoviesListQuery: vi.fn(),
+  };
+});
 
 const store = configureStore({
   reducer: {
     filters: filtersSlice.reducer,
     genres: genresSlice.reducer,
     formatters: formattersSlice.reducer,
-    [moviesRtk.reducerPath]: moviesRtk.reducer,
+    [api.moviesRtk.reducerPath]: api.moviesRtk.reducer,
   },
   preloadedState: {
     filters: mockFilters,
     formatters: mockRules,
     genres: mockGenres,
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(moviesRtk.middleware),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(api.moviesRtk.middleware),
 });
 
 describe('Testing MoviesList.test functionality', () => {
@@ -58,16 +47,12 @@ describe('Testing MoviesList.test functionality', () => {
   });
 
   test('MoviesList should display the movie cards ', async () => {
-    vi.mock('@/services/api.service', async () => {
-      const actual = await vi.importActual('@/services/api.service');
-      return {
-        ...actual,
-        useGetMoviesListQuery: vi.fn(() => ({
-          data: mockMovies,
-          isLoading: false,
-          error: null,
-        })),
-      };
+    const mockedUseQuery = vi.mocked(api.useGetMoviesListQuery);
+    mockedUseQuery.mockReturnValue({
+      data: mockMovies,
+      isLoading: false,
+      error: null,
+      refetch: vi.fn(),
     });
 
     render(
@@ -80,24 +65,20 @@ describe('Testing MoviesList.test functionality', () => {
     expect(movieItems).toHaveLength(mockMovies.results.length);
   });
 
-  // test('Toast with loading message must appear if the data is loading', async () => {
-  //   vi.mock('@/services/api.service', async () => {
-  //     const actual = await vi.importActual('@/services/api.service');
-  //     return {
-  //       ...actual,
-  //       useGetMoviesListQuery: vi.fn(() => ({
-  //         data: undefined,
-  //         isLoading: true,
-  //         error: null,
-  //       })),
-  //     };
-  //   });
+  test('Toast with loading message must appear if the data is loading', async () => {
+    const mockedUseQuery = vi.mocked(api.useGetMoviesListQuery);
+    mockedUseQuery.mockReturnValue({
+      data: undefined,
+      isLoading: true,
+      error: null,
+      refetch: vi.fn(),
+    });
 
-  //   render(
-  //     <Provider store={store}>
-  //       <MoviesList />
-  //     </Provider>,
-  //   );
-  //   expect(screen.queryByTestId('toast-comp')).toBeTruthy();
-  // });
+    render(
+      <Provider store={store}>
+        <MoviesList />
+      </Provider>,
+    );
+    expect(screen.queryByTestId('toast-comp')).toBeTruthy();
+  });
 });
