@@ -80,5 +80,24 @@ describe('Testing MoviesList.test functionality', () => {
       </Provider>,
     );
     expect(screen.queryByTestId('toast-comp')).toBeTruthy();
+    expect(screen.getByText('Loading')).toBeInTheDocument();
+  });
+
+  test('Toast with error message must appear if the was an error', async () => {
+    const mockedUseQuery = vi.mocked(api.useGetMoviesListQuery);
+    mockedUseQuery.mockReturnValue({
+      data: undefined,
+      isLoading: false,
+      error: { code: 500 },
+      refetch: vi.fn(),
+    });
+
+    render(
+      <Provider store={store}>
+        <MoviesList />
+      </Provider>,
+    );
+    expect(screen.queryAllByTestId('toast-comp')).toBeTruthy();
+    expect(screen.queryByText('Error')).toBeInTheDocument();
   });
 });
