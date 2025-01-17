@@ -19,10 +19,10 @@ export const Toast = ({ text, title, icon }: ToastProps) => {
   useEffect(() => {
     const timerFo = window.setTimeout(() => {
       setFadeOut(true);
-    }, 45000);
+    }, 4500);
     const timerFi = window.setTimeout(() => {
       setVisible(false);
-    }, 50000);
+    }, 5100);
     return () => {
       clearTimeout(timerFi);
       clearTimeout(timerFo);
