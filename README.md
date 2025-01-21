@@ -6,7 +6,6 @@ This project is a movie browsing web application built using React and Redux Too
 - React 18.3.1
 - Redux Toolkit 2.3.0
 - React Redux 9.1.2
-- Axios 1.7.7
 - Tailwind CSS 3.4.15
 - Vite 5.4.10
 - Node 20.18.1

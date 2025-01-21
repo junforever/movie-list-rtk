@@ -16,16 +16,16 @@ export const Modal = ({ title, children, onClose, isOpen = false }: ModalProps) 
     modalRef.current?.classList.add(
       'backdrop:opacity-0',
       'backdrop:transition-opacity',
-      'backdrop:duration-700',
+      'backdrop:duration-300',
       'backdrop:ease-out',
       'opacity-0',
-      'animate-fadeOut-600',
+      'animate-fadeOut-300',
     );
     document.body.classList.remove('overflow-hidden');
     timeOutRef.current = window.setTimeout(() => {
       modalRef.current?.close();
       onClose();
-    }, 600);
+    }, 300);
   };
 
   useEffect(() => {
