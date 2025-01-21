@@ -5,7 +5,7 @@ interface ModalProps {
   title: string;
   children: ReactNode;
   onClose: () => void;
-  isOpen: boolean;
+  isOpen?: boolean;
 }
 
 export const Modal = ({ title, children, onClose, isOpen = false }: ModalProps) => {
@@ -42,6 +42,7 @@ export const Modal = ({ title, children, onClose, isOpen = false }: ModalProps) 
 
   useEffect(() => {
     if (isOpen) {
+      console.log(modalRef.current);
       modalRef.current?.showModal();
       return;
     }

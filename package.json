@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "prepare": "husky",
     "commitlint": "commitlint --edit",
-    "test": "vitest --watch=false",
+    "test": "vitest --watch=false --changed",
     "test-local": "vitest"
   },
   "dependencies": {
