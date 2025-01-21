@@ -55,9 +55,11 @@ export default {
       },
       animation: {
         fadeIn: 'fadeIn 1s ease-in-out',
-        "fadeIn-600": 'fadeIn 0.6s ease-in-out',
-        "fadeIn-200": 'fadeIn 0.2s ease-in-out',
         fadeOut: 'fadeOut 1s ease-in-out',
+        "fadeIn-600": 'fadeIn 0.6s ease-in-out',
+        "fadeIn-300": 'fadeIn 0.3s ease-in-out',
+        "fadeIn-200": 'fadeIn 0.2s ease-in-out',
+        "fadeOut-600": 'fadeOut 0.6s ease-in-out',
         bounceInDown: 'bounceInDown 0.5s ease-out forwards'
       },
     },

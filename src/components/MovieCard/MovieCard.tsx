@@ -1,5 +1,5 @@
 import { Movie } from '@/types/global';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Modal } from '../Modal/Modal';
 import { ChatAnswer } from '../ChatAnswer/ChatAnswer';
 interface MovieCardProps {
@@ -11,15 +11,17 @@ export const MovieCard = ({ cssClass, movie }: MovieCardProps) => {
   const { title, poster_path, release_date } = movie;
   const formattedDate = new Date(release_date);
   const [imgLoaded, setImgLoaded] = useState(false);
-  const modalRef = useRef<HTMLDialogElement>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const onModalClose = () => setIsModalOpen(false);
+  const onModalOpen = () => {
+    document.body.classList.add('overflow-hidden');
+    setIsModalOpen(true);
+  };
 
   return (
     <>
       <figure
-        onClick={() => {
-          document.body.classList.add('overflow-hidden');
-          modalRef.current?.showModal();
-        }}
+        onClick={onModalOpen}
         className="flex flex-col pb-[0.3rem] w-full h-full rounded-2xl overflow-hidden shadow-white-card transition-transform duration-500 ease-in-out hover:scale-[1.05] cursor-pointer">
         {!imgLoaded && <img src="/images/fff.webp" alt="Placeholder image" className="aspect-movie blur-lg" />}
         <img
@@ -34,7 +36,7 @@ export const MovieCard = ({ cssClass, movie }: MovieCardProps) => {
           <span>{isNaN(formattedDate.getTime()) ? '' : formattedDate.getFullYear()}</span>
         </figcaption>
       </figure>
-      <Modal title={movie.original_title} modalRef={modalRef}>
+      <Modal title={movie.original_title} onClose={onModalClose} isOpen={isModalOpen}>
         <ChatAnswer avatarUrl="/images/avatar.webp" dividerTitle="Overview">
           <p>{movie.overview}</p>
           {movie.genre_labels && (
